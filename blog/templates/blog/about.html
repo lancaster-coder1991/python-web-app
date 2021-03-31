@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "blog/base.html" %} <!-- This template extends the base template, which includes all of the boilerplate head code and the html and body tags. Notice again we don't need to include /templates int he filepath as Django knows to lok in this directory by default -->
+{% block content %} <!-- We encase the content specific to this page within the code blocks used in the parent tempalte, to indicate where the content should live on the page -->
+    <!-- Below is an example of using context data in code blocks within an html template. 'posts' is the key in the context object that is being passed from views.py -->
     <h1>Blog About!</h1>
-</body>
-</html>
+{% endblock %}

@@ -6,6 +6,8 @@ Apps need to be added into the INSTALLED_APPS array found in djangoproject/setti
 
 "blog.apps.BlogConfig"
 
+Static files such as CSS and JS files are typically kept within a 'static' directory within each app.
+
 ## Routing
 
 Routing for the project is managed through the central django_project urls.py file. When someone navigates to a path on the project server, the request is sent to this file. If a matching path is found, redirection to the appropriate path and code will take place.
@@ -35,7 +37,9 @@ This means that when no further route has been supplied beyond /blog, display th
 
 ## Templates
 
-Temapltes are used to create HTML snippets to be inserted into route functions. Djangon automatically looks for a 'templates/"app name"' directory in each app folder where these snippets should be kept. Each template is an HTML file.
+Temapltes are used to create HTML snippets to be inserted into route functions. Djangon automatically looks for a 'templates/"app name"' directory in each app folder where these snippets should be kept. Each template is an HTML file. See the templates directory and views.py within blog for more info on how to pass variables to the HTML.
+
+To avoid repeated code between templates, you can use template inheritance.
 
 ## CLI
 

@@ -7,11 +7,30 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
+posts = [
+    {
+        "author": "CoreyMS",
+        "title": "Blog Post 1",
+        "content": "First post content",
+        "date_posted": "August 27, 2018",
+    },
+    {
+        "author": "Jane Doe",
+        "title": "Blog Post 2",
+        "content": "Second post content",
+        "date_posted": "August 28, 2018",
+    },
+]
+
+
 def home(request):
-    return render(
-        request, "blog/home.html"
-    )  # No need to add /templates to the directory here, as Django automatically loks in this folder for templates
+    # We can add a context dictionary with values that relate to data to pass to our templates
+    context = {"posts": posts}
+
+    # No need to add /templates to the directory filepath here, as Django automatically loks in this folder for templates
+    # Notice that context has been added as the third argument to the render method
+    return render(request, "blog/home.html", context)
 
 
 def about(request):
-    return render(request, "blog/about.html")
+    return render(request, "blog/about.html", {"title": "About"})
