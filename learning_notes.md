@@ -41,6 +41,14 @@ Temapltes are used to create HTML snippets to be inserted into route functions. 
 
 To avoid repeated code between templates, you can use template inheritance.
 
+## Database
+
+Django has a built in ORM (Object Relational Mapper). This emans that we can access databases in an object-orientated way.
+
+## Admin Page
+
+By default, the /admin path of your project navigates to a default Django admin portal. Via this portal you can editview and edit the data that your site uses in a GUI. You can also create additional admin users here once the first has been created via the CLI (see below).
+
 ## CLI
 
 Use the commands below when creating new apps within this project directory:
@@ -49,6 +57,15 @@ To run a the project server:
 
     python manage.py runserver
 
-To start a new App within the project
+To start a new App within the project:
 
     python manage.py startapp <name of app>
+
+To create a new database and migrate some default tables to it:
+
+    python manage.py makemigrations
+    python manage.py migrate
+
+To create a new user to log into /admin page of the project (NB this requird a database to work, see above):
+
+    python manage.py createsuperuser

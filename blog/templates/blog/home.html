@@ -2,8 +2,15 @@
 {% block content %} <!-- We encase the content specific to this page within the code blocks used in the parent tempalte, to indicate where the content should live on the page -->
     <!-- Below is an example of using context data in code blocks within an html template. 'posts' is the key in the context object that is being passed from views.py -->
     {% for post in posts%}  <!-- Similar to PHP, we use code blocks to indicate where lops, if/else blocks etc. should be in the code, and write HTML inside these blocks -->
-        <h1>{{ post.title }}</h1>
-        <p>By {{ post.author }} on {{ post.date_posted }}</p>
-        <p>{{ post.content }}</p>
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.author }}</a>
+            <small class="text-muted">{{ post.date_posted }}</small>
+          </div>
+          <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+      </article>
     {% endfor %}
 {% endblock %}
