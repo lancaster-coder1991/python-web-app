@@ -61,11 +61,45 @@ To start a new App within the project:
 
     python manage.py startapp <name of app>
 
-To create a new database and migrate some default tables to it:
+These commands create a new database and migrate some default tables to it if you don't have a DB set up. If you have set one up, then makemigrations command will add migration classes to "app name/migrations" in separate files. The migrate command will actually run the migrations:
 
     python manage.py makemigrations
     python manage.py migrate
 
+To check SQL code that will be run on a migration after 'makemigration' has been run to create the migration class, use this command:
+
+    python manage.py sqlmigrate *name of app* *number of migration*
+    e.g.: python manage.py sqlmigrate blow 0001
+
 To create a new user to log into /admin page of the project (NB this requird a database to work, see above):
 
     python manage.py createsuperuser
+
+To open a python/django shell:
+
+    python manage.py shell
+
+## Django Shell
+
+Using the above comamnd we can open a shell that lets us experiment with data easily. In the shell we need to import any entities we want to experiemnt with, using the same syntax as in a .py file:
+
+    from blog.models import Post
+    from django.contrib.auth.models import User
+
+Then we can access pieces of information using dot notation and methods:
+
+    User.objects.all() //Selects all entries in the User table
+    User.objects.fiest() //Selects the first entry - note that first() also unpacks the entry from the array, rather than returning a single-element array
+    User.objects.filter(username='george.scott')
+
+Entries found using the above kind of methods can be assigned to variables using standard python syntax:
+
+    user = User.objects.get(id=1)
+
+We can create new objects for our tables using class contructor syntax:
+
+    post_1 = Post(title="Blog 1", content='First Post Content!', author=user)
+
+Note that the above new object needs saving into the DB:
+
+    post_1.save()
