@@ -42,6 +42,11 @@
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-8">
+            {% if messages %} <!-- This block loks for messages from the messages library, which is in use in e.g. users/views.py to display a success message upon user registration -->
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div> <!-- Because Django contrib messages shares their tag names with classes from bootstrap, we can use them dynamically to name the class and style the messages appropriately e.g. a success message will be styled with bootstrap's success message styling -->
+                {% endfor %}
+            {% endif %}
             {% block content %}{% endblock %} <!-- Content specific to each template will be placed between these two placeholder tags -->
             </div>
             <div class="col-md-4">

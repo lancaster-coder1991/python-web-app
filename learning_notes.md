@@ -4,7 +4,11 @@ Django projects can contain multiple apps within the same project. For example, 
 
 Apps need to be added into the INSTALLED_APPS array found in djangoproject/settings.py. The syntax for the entry is a string in the form "app name".apps."app config name", where "app config name is the name of the App class found in "app name"/apps.py. E.g.:
 
-"blog.apps.BlogConfig"
+    "blog.apps.BlogConfig"
+
+Any third party packages need to be installed here as well. For example, the crispy_forms entry in this list is:
+
+    "crispy_forms"
 
 Static files such as CSS and JS files are typically kept within a 'static' directory within each app.
 
