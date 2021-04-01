@@ -19,5 +19,7 @@ class Post(
         User, on_delete=models.CASCADE
     )  # the on_delete argument is stating that if the user of a post is deleted, their posts should be deleted as well
 
-    def __str__(self):
+    def __str__(
+        self,
+    ):  # Via this dunder method, we can change what appears in the shell when inspecting entries into this model
         return self.title

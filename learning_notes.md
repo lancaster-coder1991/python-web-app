@@ -103,3 +103,10 @@ We can create new objects for our tables using class contructor syntax:
 Note that the above new object needs saving into the DB:
 
     post_1.save()
+
+One we have selected entried from a model, we can run queries on them using ethods provided to us by Django:
+
+    user = User.objects.get(id=1)
+    post = user.post_set // finds all posts for this user using _set
+    user.post_set.all() // lists all results of above
+    user.post_set.create(title='Blog 3', content='Third Post Content!')  // creates a new post for this user

@@ -2,12 +2,15 @@
 # The teampltes are HTML files which will display when a particular view is routed to, if the render function has been invoked correctly.
 from django.shortcuts import render
 
+# We can use the below syntax to import models from the current directory
+from .models import Post
+
 # We can use the HttpResponse function from django.http to create content to send to the client when they hit a particular route
 # NB this is only needed when templates aren't being used.
 from django.http import HttpResponse
 
 
-posts = [
+posts = [  # This data is akin to the format that using object methods such as Post.objects.all() will return
     {
         "author": "CoreyMS",
         "title": "Blog Post 1",
@@ -25,7 +28,7 @@ posts = [
 
 def home(request):
     # We can add a context dictionary with values that relate to data to pass to our templates
-    context = {"posts": posts}
+    context = {"posts": Post.objects.all()}
 
     # No need to add /templates to the directory filepath here, as Django automatically loks in this folder for templates
     # Notice that context has been added as the third argument to the render method
