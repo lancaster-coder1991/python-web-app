@@ -49,6 +49,8 @@ Django has a built in ORM (Object Relational Mapper). This emans that we can acc
 
 By default, the /admin path of your project navigates to a default Django admin portal. Via this portal you can editview and edit the data that your site uses in a GUI. You can also create additional admin users here once the first has been created via the CLI (see below).
 
+Once data has been created on the database, you need to register it on the admin page. This can be done via the admin.py file in the app directory - see the example in the blog admin.py file for the syntax for this.
+
 ## CLI
 
 Use the commands below when creating new apps within this project directory:
