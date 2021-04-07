@@ -1,9 +1,10 @@
 # The render built-in function takes the request as a first argument, then a file path to templates as its second argument.
 # The teampltes are HTML files which will display when a particular view is routed to, if the render function has been invoked correctly.
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # We can use the below syntax to import models from the current directory
 from .models import Post
+from django.contrib.auth.models import User
 
 # We can use the HttpResponse function from django.http to create content to send to the client when they hit a particular route
 # NB this is only needed when templates aren't being used.
@@ -40,6 +41,26 @@ class PostListView(
         "-date_posted"
     ]  # adding this variable dictates the ordering of the model data - the minus sign inverts the ordering from ascending to descending
     paginate_by = 2  # This attribute provides pagination functionality, with 2 list items per page
+
+
+class UserPostListView(
+    ListView
+):  # ListViews are good for listing lots of similar items, as with our blog posts
+    model = Post  # This tells the view what model to query in order to create the List
+    # By default, class views will try to load templates found at "app name"/"model name (in this case 'post'"_"viewtype"(in this case list).html - so in this example that would be blog/post_list.html
+    # We can overwrite this behaviour as below
+    template_name = "blog/user_posts.html"
+    context_object_name = "posts"  # This overrides the default
+    ordering = [
+        "-date_posted"
+    ]  # adding this variable dictates the ordering of the model data - the minus sign inverts the ordering from ascending to descending
+    paginate_by = 5  # This attribute provides pagination functionality, with 2 list items per page
+
+    def get_queryset(
+        self,
+    ):  # defining a get_queryset method, combined with te get_object_or_404 function, allows us to filter the model that this class view is based on
+        user = get_object_or_404(User, username=self.kwargs.get("username"))
+        return Post.objects.filter(author=user).order_by("-date_posted")
 
 
 class PostDetailView(DetailView):

@@ -5,7 +5,7 @@
         <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}"> <!-- Note the syntax and objects used to dynmaically display the author's image -->
         <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2" href="#">{{ object.author }}</a>
+                <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
                 <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small> <!-- Note the use of a Django filter to amend the date format here -->
                 {% if object.author == user %} <!-- Check if the post author is the currently logged in user - if so, display links to the update and delete pages -->
                     <div>
