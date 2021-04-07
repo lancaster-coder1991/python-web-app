@@ -53,7 +53,11 @@ To avoid repeated code between templates, you can use template inheritance.
 
 ## Database
 
-Django has a built in ORM (Object Relational Mapper). This emans that we can access databases in an object-orientated way.
+Django has a built in ORM (Object Relational Mapper). This means that we can access databases in an object-orientated way. See the models files in each app and the command line actions below for more information on how this works.
+
+## Pagination
+
+django comes with pagination functionality.
 
 ## Admin Page
 

@@ -39,6 +39,7 @@ class PostListView(
     ordering = [
         "-date_posted"
     ]  # adding this variable dictates the ordering of the model data - the minus sign inverts the ordering from ascending to descending
+    paginate_by = 2  # This attribute provides pagination functionality, with 2 list items per page
 
 
 class PostDetailView(DetailView):
