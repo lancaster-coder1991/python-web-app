@@ -1,0 +1,6 @@
+{% extends "blog/base.html" %} <!-- This template extends the base template from the blogs app directory , which includes all of the boilerplate head code and the html and body tags. Notice again we don't need to include /templates in the filepath as Django knows to look in this directory by default -->
+{% load crispy_forms_tags %} <!--This lets us use the third-party package crispy forms in this template -->
+{% block content %} <!-- We encase the content specific to this page within the code blocks used in the parent template, to indicate where the content should live on the page -->
+    <!-- Below is an example of using context data in code blocks within an html template. 'posts' is the key in the context object that is being passed from views.py -->
+    <h1>{{ user.username }}</h1> <!--Note use of the global user varaible, which doesn't need importing -->
+{% endblock %}

@@ -5,6 +5,9 @@ from django.contrib import (
 from .forms import (
     UserRegisterForm,
 )  # We are importing our own form, which is based on the UserCreationForm provided by Django
+from django.contrib.auth.decorators import (
+    login_required,
+)  # the decorators property of the auth dictionary provides a decorator which provides functionality to prevent certain pages from being viewed unless the user is logged in
 
 
 def register(request):
@@ -17,13 +20,21 @@ def register(request):
             username = form.cleaned_data.get(
                 "username"
             )  # django forms have a cleaned-data dictionary where values from the form can be retrieved
-            messages.success(request, f"Account created for{username}!")
+            messages.success(
+                request,
+                f"Your account has been created! You are now about to log in :)",
+            )
             return redirect(
-                "blog-home"
-            )  # Here we use the redirect function, imported above, and pass in the url pattern name from blog/urls.py
+                "login"
+            )  # Here we use the redirect function, imported above, and pass in the url pattern name
     else:
         form = UserRegisterForm()
 
     return render(
         request, "users/register.html", {"form": form}
     )  # Note how we're passing in the form object as the context argument for the render function. This means it can be used in the register.html template
+
+
+@login_required  # This decorator, imported above, means that this page can only be viewed when the user is logged in
+def profile(request):
+    return render(request, "users/profile.html")

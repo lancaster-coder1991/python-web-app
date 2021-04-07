@@ -95,7 +95,7 @@ Using the above comamnd we can open a shell that lets us experiment with data ea
 Then we can access pieces of information using dot notation and methods:
 
     User.objects.all() //Selects all entries in the User table
-    User.objects.fiest() //Selects the first entry - note that first() also unpacks the entry from the array, rather than returning a single-element array
+    User.objects.first() //Selects the first entry - note that first() also unpacks the entry from the array, rather than returning a single-element array
     User.objects.filter(username='george.scott')
 
 Entries found using the above kind of methods can be assigned to variables using standard python syntax:
@@ -116,3 +116,11 @@ One we have selected entried from a model, we can run queries on them using etho
     post = user.post_set // finds all posts for this user using _set
     user.post_set.all() // lists all results of above
     user.post_set.create(title='Blog 3', content='Third Post Content!')  // creates a new post for this user
+
+When you're inspecting models you can use dot notation to find their properties. For example, if I want to find my user variable's profile picture name:
+
+    user.profile.image
+
+There are also some built in properties for images, such as .width:
+
+    user.profile.image.width # 706

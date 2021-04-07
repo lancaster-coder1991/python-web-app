@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -122,4 +123,13 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+MEDIA_ROOT = os.path.join(
+    BASE_DIR, "media"
+)  # Using the os.path method and the BASE_DIR variable defined in this file, we can create a default directory for images to be saved to using this setting
+MEDIA_URL = "/media/"  # This setting defines how we are going to reference our images in our HTML templates when we want to display them.
+
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+LOGIN_REDIRECT_URL = "blog-home"  # This setting overrides the default login behaviour of routing to /accounts/profile
+
+LOGIN_URL = "login"  # This sets the automatic redirect behaviour when the user tries to navigate to a page that requires login
