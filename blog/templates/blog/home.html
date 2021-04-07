@@ -9,7 +9,7 @@
             <a class="mr-2" href="#">{{ post.author }}</a>
             <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small> <!-- Note the use of a Django filter to amend the date format here -->
           </div>
-          <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+          <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2> <!-- Notice the syntax used to pass the primary key as part of the path for the link to the blog details page -->
           <p class="article-content">{{ post.content }}</p>
         </div>
       </article>

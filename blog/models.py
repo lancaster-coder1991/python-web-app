@@ -7,6 +7,7 @@ from django.utils import (
 from django.contrib.auth.models import (
     User,
 )  # Here we are importing in information from the administrative Users table to link to this table
+from django.urls import reverse
 
 
 class Post(
@@ -23,3 +24,8 @@ class Post(
         self,
     ):  # Via this dunder method, we can change what appears in the shell when inspecting entries into this model
         return self.title
+
+    def get_absolute_url(self):  # The get_absolute_url method of a class view sets
+        # The reverse method looks through all urls defined in your project for the url defined with the name url_name and returns the actual url.
+        # It accepts args or kwargs as an argument if the path requires, them and in this case it does - the post details page requires a post id, which you can see we're passing it here
+        return reverse("post-detail", kwargs={"pk": self.pk})
