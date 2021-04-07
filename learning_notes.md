@@ -39,6 +39,12 @@ The blog.urls file within the blog app looks like this:
 
 This means that when no further route has been supplied beyond /blog, display the contents of the return value of the home component in the views.py file in the blog directory.
 
+## Types of View
+
+There are two types of views - function and class views. Out of class views, django comes with with several built-in types.
+
+By default, class views will try to load templates found at "app name"/"model name (in this case 'post'"\_"viewtype"(in this case list).html - so in this example tat would be blog/post_list.html. We can overwrite this behaviour by adding a template_name property to the class.
+
 ## Templates
 
 Temapltes are used to create HTML snippets to be inserted into route functions. Djangon automatically looks for a 'templates/"app name"' directory in each app folder where these snippets should be kept. Each template is an HTML file. See the templates directory and views.py within blog for more info on how to pass variables to the HTML.
