@@ -4,6 +4,8 @@ from django.contrib import (
 )  # the messages contrib has a library of different html messages that can be used, such as one-time flash
 from .forms import (
     UserRegisterForm,
+    UserUpdateForm,
+    ProfileUpdateForm,
 )  # We are importing our own form, which is based on the UserCreationForm provided by Django
 from django.contrib.auth.decorators import (
     login_required,
@@ -37,4 +39,30 @@ def register(request):
 
 @login_required  # This decorator, imported above, means that this page can only be viewed when the user is logged in
 def profile(request):
-    return render(request, "users/profile.html")
+    if request.method == "POST":
+        u_form = UserUpdateForm(
+            request.POST, instance=request.user
+        )  # Passing in this instance argument means that these two forms will be prepopulated with the current user's details, which are accessed via the request parameter of the parent function
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile
+        )
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(
+                request,
+                f"Your account has been updated :)",
+            )
+            return redirect("profile")
+    else:
+        u_form = UserUpdateForm(
+            instance=request.user
+        )  # Passing in this instance argument means that these two forms will be prepopulated with the current user's details, which are accessed via the request parameter of the parent function
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        "u_form": u_form,
+        "p_form": p_form,
+    }  # Here we are importing forms from forms.py and adding them to a context dictionary, and then passing this as the third arguments to the render function below so that they can be used in the profile.html template
+
+    return render(request, "users/profile.html", context)
