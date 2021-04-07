@@ -33,6 +33,7 @@
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
                         {% if user.is_authenticated %} <!-- Django provides a user variable, with an is_authenticated property. This lets us check the current user's account and login status -->
+                            <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
                             <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a> <!-- Using this syntax, you can target any of the url routes in the urls.py file via their name attribute -->
                             <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                         {% else %}
