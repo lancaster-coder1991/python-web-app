@@ -1,6 +1,12 @@
 from django.urls import path
 from . import views
-from .views import PostListView, PostDetailView, PostCreateView
+from .views import (
+    PostListView,
+    PostDetailView,
+    PostCreateView,
+    PostUpdateView,
+    PostDeleteView,
+)
 
 urlpatterns = [
     path(
@@ -9,6 +15,8 @@ urlpatterns = [
     path(
         "post/<int:pk>", PostDetailView.as_view(), name="post-detail"
     ),  # Notice that the route uses angle bracket syntax here to denote a variable being passed to the path - in this case the primary key, which should always be an integer
+    path("post/<int:pk>/update/", PostUpdateView.as_view(), name="post-update"),
+    path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
     path("post/new/", PostCreateView.as_view(), name="post-create"),
     path("about/", views.about, name="blog-about"),
 ]

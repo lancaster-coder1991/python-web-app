@@ -8,9 +8,14 @@ from .models import Post
 # We can use the HttpResponse function from django.http to create content to send to the client when they hit a particular route
 # NB this is only needed when templates aren't being used.
 from django.http import HttpResponse
-
-from django.views.generic import ListView, DetailView, CreateView
-
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # NB this function view or home is not being used - the class view below is currently used. Kept this one in for reference
 def home(request):
@@ -42,7 +47,9 @@ class PostDetailView(DetailView):
 
 # Using the create view provides a good example of why class based views are powerful
 # for a CreateView class view, all we need to do is tell it the db model to look at and fields to include on the form, and it does the rest for us
-class PostCreateView(CreateView):
+class PostCreateView(
+    LoginRequiredMixin, CreateView
+):  # The LoginRequiredMixin provides the same functionality as the @login_reqired decorator, but as decorators can't be used on classes it brings this functionality to class views
     model = Post
     fields = ["title", "content"]
 
@@ -53,6 +60,44 @@ class PostCreateView(CreateView):
             self.request.user
         )  # We set the form's author to the currently logged in user before the validity check happens
         return super().form_valid(form)
+
+
+class PostUpdateView(
+    LoginRequiredMixin, UserPassesTestMixin, UpdateView
+):  # See above for notes on LoginRequiredMixin. The UserPassesTestMixin in this case means users can only update their own posts when combined with the test_func below
+    model = Post
+    fields = ["title", "content"]
+
+    def form_valid(
+        self, form
+    ):  # We are overwriting the parent class' form_valid method with some additional functionality
+        form.instance.author = (
+            self.request.user
+        )  # We set the form's author to the currently logged in user before the validity check happens
+        return super().form_valid(form)
+
+    def test_func(
+        self,
+    ):  # class methods called test_func combine with the UserPassesTestMixin mean that the user has to pass the test in the function in order to access this view
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = (
+        "/"  # This attribute sets where the user should be redirected after completion
+    )
+
+    def test_func(
+        self,
+    ):  # class methods called test_func combine with the UserPassesTestMixin mean that the user has to pass the test in the function in order to access this view
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
 
 
 def about(request):
