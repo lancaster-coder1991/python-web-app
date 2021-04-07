@@ -10,7 +10,9 @@ class Profile(
     user = models.OneToOneField(
         User, on_delete=models.CASCADE
     )  # The models OneToOneField method denotes a 1-1 relationship between two models.
-    image = models.ImageField(default="defualt.jpg", upload_to="profile_pics")
+    image = models.ImageField(
+        default="default.png", upload_to="profile_pics"
+    )  # In conjunction with the MEDIA_ROOT and MEDIA_URL settings in settings.py, pictures uploaded to user accounts will be uploaded to /media/profile_pics
 
     def __str__(self):
         return f"{self.user.username}'s Profile"

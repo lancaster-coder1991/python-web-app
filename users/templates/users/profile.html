@@ -2,5 +2,14 @@
 {% load crispy_forms_tags %} <!--This lets us use the third-party package crispy forms in this template -->
 {% block content %} <!-- We encase the content specific to this page within the code blocks used in the parent template, to indicate where the content should live on the page -->
     <!-- Below is an example of using context data in code blocks within an html template. 'posts' is the key in the context object that is being passed from views.py -->
-    <h1>{{ user.username }}</h1> <!--Note use of the global user varaible, which doesn't need importing -->
+    <div class="content-section">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}"> <!-- In conjunction with the settings in the Profile model file and the MEDIA_ROOT and MEDIA_URL settings in settings.py, we can use this syntax to find the user's profile image -->
+            <div class="media-body">
+                <h2 class="account-heading">{{ user.username }}</h2> <!--Note use of the global user varaible, which doesn't need importing -->
+                <p class="text-secondary">{{ user.email }}</p>
+            </div>
+        </div>
+        <!-- FORM HERE -->
+    </div>
 {% endblock %}

@@ -55,6 +55,10 @@ By default, the /admin path of your project navigates to a default Django admin 
 
 Once data has been created on the database, you need to register it on the admin page. This can be done via the admin.py file in the app directory - see the example in the blog admin.py file for the syntax for this.
 
+## Signals
+
+Signals are sort of event listeners that listen for events happening in the application and run functions when they do. Some signals come built in - look at the post_save signal in users/signals.py for an example of this.
+
 ## CLI
 
 Use the commands below when creating new apps within this project directory:

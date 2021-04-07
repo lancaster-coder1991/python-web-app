@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.contrib.auth import (
     views as auth_views,
 )  # this imports views from Django's authentication library
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 from django.urls import path, include
 from users import views as user_views
@@ -38,3 +39,8 @@ urlpatterns = [
     ),
     path("profile/", user_views.profile, name="profile"),
 ]
+
+if (
+    settings.DEBUG
+):  # This code is requied in order to load images correctly. Because serving images with this method is only suitable for development (DEBUG mode in Django), we can use conditional logic to only include these path settings when in development
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
