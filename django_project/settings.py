@@ -133,3 +133,12 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 LOGIN_REDIRECT_URL = "blog-home"  # This setting overrides the default login behaviour of routing to /accounts/profile
 
 LOGIN_URL = "login"  # This sets the automatic redirect behaviour when the user tries to navigate to a page that requires login
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # These settings are in here in order to allow password reset emails to be sent
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get(
+    "GM_MAIL_NAME"
+)  # These settings are getting environment variables of email address and app password from Control Panel on Windows OS
+EMAIL_HOST_PASSWORD = os.environ.get("GM_MAIL_PASSWORD")
