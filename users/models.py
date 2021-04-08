@@ -19,9 +19,11 @@ class Profile(
         return f"{self.user.username}'s Profile"
 
     def save(
-        self,
+        self, *args, **kwargs
     ):  # All models have a default save method, but this can be overwritten as here
-        super().save()  # We still want to run the saving functionality from the default save function
+        super().save(
+            *args, **kwargs
+        )  # We still want to run the saving functionality from the default save function
         img = Image.open(
             self.image.path
         )  # Using the Image class imported from Pillow, we can open and resize user uploaded images using its path
